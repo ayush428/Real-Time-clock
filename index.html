@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Digital Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+        }
+        .clock-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2e2b2b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #161616;
+            margin: 0 5px;
+            padding: 10px 20px;
+            border-radius: 12px;
+        }
+        .colon, .ampm {
+            margin: 0 10px;
+            font-size: 2rem;
+        }
+        .time-box div {
+            font-size: 3rem;
+        }
+        @media (max-width: 768px) {
+            .clock-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .time-box {
+                margin: 5px 0;
+            }
+            .colon, .ampm {
+                margin: 5px 0;
+                font-size: 1.5rem;
+            }
+            .time-box div {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="time-box" id="h">00</div>
+        <div class="colon">:</div>
+        <div class="time-box" id="m">00</div>
+        <div class="colon">:</div>
+        <div class="time-box" id="s">00</div>
+        <div class="ampm" id="ampm">AM</div>
+    </div>
+
+    <script>
+        const hoursElem = document.getElementById("h");
+        const minutesElem = document.getElementById("m");
+        const secondsElem = document.getElementById("s");
+        const ampmElem = document.getElementById("ampm");
+
+        setInterval(() => {
+            const now = new Date();
+            let hrs = now.getHours();
+            let min = now.getMinutes();
+            let sec = now.getSeconds();
+            const ampm = hrs >= 12 ? "PM" : "AM";
+
+            hrs = hrs % 12;
+            hrs = hrs ? hrs : 12; // the hour '0' should be '12'
+            hrs = hrs < 10 ? "0" + hrs : hrs;
+            min = min < 10 ? "0" + min : min;
+            sec = sec < 10 ? "0" + sec : sec;
+
+            hoursElem.textContent = hrs;
+            minutesElem.textContent = min;
+            secondsElem.textContent = sec;
+            ampmElem.textContent = ampm;
+        }, 1000);
+    </script>
+</body>
+</html>
